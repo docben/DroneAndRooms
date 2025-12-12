@@ -21,11 +21,21 @@ public :
     QColor color;
     Polygon area;
     QList<Link*> links;
+    /** bestDistance: vector of pair(link, distance)
+     *  link is the link to follow from the current server to reach a server destination
+     *  for example bestDistance[0]={link to go to server#0,distance to this server}
+    **/
     QVector<QPair<Link*,qreal>> bestDistance;
 };
 
 class Link {
 public:
+    /**
+     * @brief Link : create a new link
+     * @param n1 : one server
+     * @param n2 : the other server
+     * @param edge : the common edge vertices (extremity)
+     */
     Link(Server *n1,Server *n2,const QPair<Vector2D,Vector2D> &edge);
     void draw(QPainter &painter);
     Server* getNode1() { return node1; }

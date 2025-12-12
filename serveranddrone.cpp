@@ -3,6 +3,7 @@
 
 Link::Link(Server *n1,Server *n2,const QPair<Vector2D,Vector2D> &edge):
     node1(n1),node2(n2) {
+    // computation of the length of the link
     Vector2D center=0.5*(edge.first+edge.second);
     distance = (center-Vector2D(n1->position.x(),n1->position.y())).length();
     distance += (center-Vector2D(n2->position.x(),n2->position.y())).length();
