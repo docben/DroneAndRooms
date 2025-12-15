@@ -16,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     // load initial simple case
     loadJson("../../json/simple.json");
+    //loadJson("../../json/arcane.json");
 }
 
 MainWindow::~MainWindow()
@@ -192,6 +193,7 @@ void MainWindow::createVoronoiMap() {
             m_servor->area.addVertex(Vector2D((*tt_it)->getCenter() + k * V));
             Vector2D pt = (*tt_it)->getCenter() + k * V;
         }
+        qDebug() << m_servor->name;
         m_servor->area.clip(mesh.getWindowXmin(),mesh.getWindowYmin(),mesh.getWindowXmax(),mesh.getWindowYmax());
         m_servor->area.triangulate();
 
@@ -261,5 +263,15 @@ void MainWindow::on_actionQuit_triggered() {
 void MainWindow::on_actionCredits_triggered() {
     QMessageBox::information(this,"About DroneAndRooms program",
                              "My tiny project.\nCredit Benoît Piranda");
+}
+
+
+void MainWindow::on_actionLoad_triggered() {
+    auto fileName = QFileDialog::getOpenFileName(this,tr("Open json description file"), "../../data", tr("JSON Files (*.json)"));
+    if (!fileName.isEmpty()) {
+        ui->canvas->clear();
+        loadJson(fileName);
+        ui->canvas->update();
+    }
 }
 

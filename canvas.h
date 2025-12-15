@@ -11,9 +11,16 @@ class Canvas : public QWidget {
 public:
     explicit Canvas(QWidget *parent = nullptr);
     ~Canvas() {
+        clear();
+    }
+
+    void clear() {
         for (auto &l:links) {
             delete l;
         }
+        links.clear();
+        drones.clear();
+        servers.clear();
     }
     void setWindow(const QPoint &origin, const QSize &size) {
         windowOrigin=origin;

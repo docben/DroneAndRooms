@@ -148,6 +148,7 @@ void Polygon::triangulate() {
     }
 }
 
+const float eps=1e-4;
 void Polygon::clip(int x0,int y0,int x1,int y1) {
     // cut point out of the zone
     int i;
@@ -221,23 +222,22 @@ void Polygon::clip(int x0,int y0,int x1,int y1) {
     i=0;
     while (i<nbVertices()) {
         // case Left/Bottom
-        if (tabPts[i].x==x0 && tabPts[i+1].y==y0) {
+        if (fabs(tabPts[i].x-x0)<eps && fabs(tabPts[i+1].y-y0)<eps) {
             insertPoint(Vector2D(x0,y0),i+1);
             i++;
         } else // case Bottom/Right
-            if (tabPts[i].y==y0 && tabPts[i+1].x==x1) {
-                insertPoint(Vector2D(x1,y0),i+1);
-                i++;
-            } else // case Right/Top
-                if (tabPts[i].x==x1 && tabPts[i+1].y==y1) {
-                    insertPoint(Vector2D(x1,y1),i+1);
-                    i++;
-                } else // case Top/Left
-                    if (tabPts[i].y==y1 && tabPts[i+1].x==x0) {
-                        insertPoint(Vector2D(x0,y1),i+1);
-                        i++;
-                    }
-
+        if (fabs(tabPts[i].y-y0)<eps && fabs(tabPts[i+1].x-x1)<eps) {
+            insertPoint(Vector2D(x1,y0),i+1);
+            i++;
+        } else // case Right/Top
+        if (fabs(tabPts[i].x-x1)<eps && fabs(tabPts[i+1].y-y1)<eps) {
+            insertPoint(Vector2D(x1,y1),i+1);
+            i++;
+        } else // case Top/Left
+        if (fabs(tabPts[i].y-y1)<eps && fabs(tabPts[i+1].x-x0)<eps) {
+            insertPoint(Vector2D(x0,y1),i+1);
+            i++;
+        }
         i++;
     }
 }

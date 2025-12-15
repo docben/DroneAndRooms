@@ -30,6 +30,8 @@ private slots:
 
     void on_actionCredits_triggered();
 
+    void on_actionLoad_triggered();
+
 private:
     /**
      * @brief loadJson
